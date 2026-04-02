@@ -1,0 +1,1445 @@
+* Variables globales */
+:root {
+    --neon-primary: #0ff;
+    --neon-secondary: #f0f;
+    --neon-accent: #93f;
+    --dark-bg: #000;
+    --darker-bg: #050507;
+    --navbar-height: 60px;
+}
+
+/* Reset et Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--dark-bg);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Scan Line Effect */
+.scan-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 255, 255, 0.2);
+    z-index: 9999;
+    animation: scanline 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+/* Écran de chargement avec AF */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+#initials {
+    font-size: 8rem;
+    font-weight: bold;
+    color: var(--neon-primary);
+    position: relative;
+    animation: glowText 2s infinite alternate;
+}
+
+#initials::before,
+#initials::after {
+    content: 'AF';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#initials::before {
+    color: var(--neon-secondary);
+    animation: glitchText 4s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-4px, -4px);
+}
+
+#initials::after {
+    color: var(--neon-primary);
+    animation: glitchText 4s infinite reverse;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    transform: translate(4px, 4px);
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.navbar ul {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    list-style: none;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--neon-primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--neon-primary);
+    text-shadow: 0 0 10px var(--neon-primary);
+}
+
+.navbar a:hover::before {
+    transform: scaleX(1);
+}
+
+/* Hero Section avec Particles */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: var(--dark-bg);
+}
+
+.hero-content-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--neon-primary),
+    0 0 20px var(--neon-primary);
+    animation: glowTitle 2s infinite alternate;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    color: #fff;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Sections communes */
+.section {
+    min-height: 100vh;
+    padding: calc(var(--navbar-height) + 2rem) 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--neon-primary);
+    text-shadow: 0 0 10px var(--neon-primary);
+    position: relative;
+}
+
+/* Certifications */
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.certification-card {
+    position: relative;
+    border: 2px solid var(--neon-primary);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.certification-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.certification-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.certification-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px var(--neon-primary);
+}
+
+.certification-card:hover .certification-overlay {
+    opacity: 1;
+}
+
+.certification-overlay span {
+    color: var(--neon-primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--neon-primary);
+}
+
+/* Formulaire de contact */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--neon-primary);
+    color: #fff;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper textarea + label {
+    top: 1rem;
+    transform: none;
+}
+
+.input-wrapper input:focus + label,
+.input-wrapper input:valid + label,
+.input-wrapper textarea:focus + label,
+.input-wrapper textarea:valid + label {
+    top: -20px;
+    font-size: 0.9rem;
+    color: var(--neon-primary);
+}
+
+.focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--neon-primary);
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus ~ .focus-border,
+.input-wrapper textarea:focus ~ .focus-border {
+    width: 100%;
+}
+
+.submit-btn {
+    position: relative;
+    padding: 1rem 3rem;
+    background: transparent;
+    border: none;
+    color: var(--neon-primary);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.submit-btn span {
+    position: absolute;
+    background: var(--neon-primary);
+}
+
+.submit-btn span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    animation: btn-anim1 1s linear infinite;
+}
+
+.submit-btn span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+
+.submit-btn span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: 0.5s;
+}
+
+.submit-btn span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+
+/* Footer */
+.footer {
+    background: var(--darker-bg);
+    padding: 2rem 0;
+    border-top: 1px solid var(--neon-primary);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.social-link {
+    font-size: 2rem;
+    color: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover::before {
+    transform: scaleX(1);
+}
+
+.social-link.email:hover { color: var(--neon-secondary); }
+.social-link.github:hover { color: var(--neon-primary); }
+.social-link.phone:hover { color: var(--neon-primary); }
+.social-link.linkedin:hover { color: #0077b5; }
+
+/* Animations */
+@keyframes glowText {
+    0% {
+        text-shadow: 0 0 10px var(--neon-primary),
+        0 0 20px var(--neon-primary);
+    }
+    100% {
+        text-shadow: 0 0 20px var(--neon-primary),
+        0 0 30px var(--neon-primary),
+        0 0 40px var(--neon-primary);
+    }
+}
+
+@keyframes glitchText {
+    0% { transform: translate(0); }
+    20% { transform: translate(-4px, 4px); }
+    40% { transform: translate(-4px, -4px); }
+    60% { transform: translate(4px, 4px); }
+    80% { transform: translate(4px, -4px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes btn-anim1 {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+@keyframes btn-anim2 {
+    0% { top: -100%; }
+    50%, 100% { top: 100%; }
+}
+
+@keyframes btn-anim3 {
+    0% { right: -100%; }
+    50%, 100% { right: 100%; }
+}
+
+@keyframes btn-anim4 {
+    0% { bottom: -100%; }
+    50%, 100% { bottom: 100%; }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .social-links {
+        gap: 2rem;
+    }
+
+    .social-link {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .navbar ul {
+        gap: 1.5rem;
+    }
+
+    .social-links {
+        gap: 1.5rem;
+    }
+}
+
+/* Ajoute ça dans ton main.css */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+/* Classes pour les animations de fade */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+:root {
+    --neon-blue: #0ff;
+    --neon-pink: #f0f;
+    --neon-purple: #93f;
+    --dark-bg: #0a0a0f;
+    --darker-bg: #050507;
+}
+
+
+/* Formulaire de contact */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--neon-primary);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--neon-primary);
+    color: #fff;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper textarea + label {
+    top: 1rem;
+    transform: none;
+}
+
+.input-wrapper input:focus + label,
+.input-wrapper input:valid + label,
+.input-wrapper textarea:focus + label,
+.input-wrapper textarea:valid + label {
+    top: -20px;
+    font-size: 0.9rem;
+    color: var(--neon-primary);
+}
+
+.submit-btn {
+    position: relative;
+    padding: 1rem 3rem;
+    color: var(--neon-primary);
+    background: transparent;
+    border: none;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: none;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    background: var(--neon-primary);
+    color: var(--dark-bg);
+    box-shadow: 0 0 20px var(--neon-primary);
+}
+
+/* Footer et liens sociaux */
+.footer {
+    background: var(--darker-bg);
+    padding: 3rem 0;
+    border-top: 1px solid var(--neon-primary);
+    margin-top: 4rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.social-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--neon-primary);
+    transition: all 0.3s ease;
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+    color: var(--neon-primary);
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    border-color: var(--neon-secondary);
+    box-shadow: 0 0 20px var(--neon-secondary);
+    transform: translateY(-5px);
+}
+
+.social-link:hover svg {
+    color: var(--neon-secondary);
+}
+
+/* Curseur personnalisé */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--neon-primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.cursor-follower {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--neon-primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.1s ease;
+}
+
+/* Animation du curseur sur les éléments interactifs */
+.cursor-hover {
+    transform: scale(1.5);
+    background: rgba(0, 255, 255, 0.1);
+}
+
+/* Dans votre main.css */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-bg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+/* Pour s'assurer que le contenu est au-dessus des particles */
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dans main.css */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    border: 1px solid var(--neon-primary);
+    backdrop-filter: blur(5px);
+}
+
+.typing-text {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: var(--neon-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 0.15em solid var(--neon-primary);
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+.subtitle-container {
+    margin-top: 2rem;
+}
+
+.cyber-subtitle {
+    opacity: 0;
+    transform: translateY(20px);
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    color: #fff;
+}
+
+.fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.delay-1 {
+    animation-delay: 3.7s;
+}
+
+.delay-2 {
+    animation-delay: 4.2s;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--neon-primary) }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Style pour la section héro */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Style pour les particles en arrière-plan */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 1;
+}
+
+/* Style pour le contenu superposé */
+.content-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 2rem;
+}
+
+/* Style du titre principal */
+.main-title {
+    font-size: 4rem;
+    color: #0ff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Style des sous-titres */
+.subtitle-container {
+    text-align: center;
+}
+
+.subtitle-container p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    z-index: 1;
+}
+
+.content-overlay {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+}
+
+/* Style pour le terminal */
+.terminal-container {
+    position: relative;
+    z-index: 2;
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    font-family: 'Fira Code', monospace;
+}
+
+.terminal-header {
+    background: #1a1a1a;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-buttons span:nth-child(1) { background: #ff5f56; }
+.terminal-buttons span:nth-child(2) { background: #ffbd2e; }
+.terminal-buttons span:nth-child(3) { background: #27c93f; }
+
+.terminal-title {
+    color: #fff;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.terminal-content {
+    padding: 20px;
+    min-height: 300px;
+}
+
+.line {
+    margin: 8px 0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.prompt {
+    color: #0ff;
+    margin-right: 10px;
+}
+
+.command-text {
+    color: #fff;
+}
+
+.output-text {
+    color: #0f0;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    color: #0ff;
+    margin: 30px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.main-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.typing-sub {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 10px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+}
+
+.typing-sub.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1em;
+    background: #0ff;
+    margin-left: 5px;
+    animation: blink 1s infinite;
+}
+
+
+/* Variables pour les couleurs cyberpunk */
+:root {
+    --neon-primary: #0ff;
+    --neon-secondary: #f0f;
+    --neon-accent: #93f;
+    --terminal-bg: rgba(0, 5, 15, 0.95);
+    --terminal-border: #0ff;
+}
+
+/* Style du terminal */
+.terminal-container {
+    position: relative;
+    z-index: 2;
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    background: var(--terminal-bg);
+    border-radius: 10px;
+    border: 1px solid var(--neon-primary);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 15px rgba(0, 255, 255, 0.1);
+    font-family: 'Fira Code', monospace;
+    backdrop-filter: blur(10px);
+    animation: terminalGlow 2s ease-in-out infinite alternate;
+}
+
+/* En-tête du terminal */
+.terminal-header {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid var(--neon-primary);
+    display: flex;
+    align-items: center;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px currentColor;
+}
+
+.terminal-buttons span:nth-child(1) {
+    background: #ff5f56;
+    border: 1px solid rgba(255, 95, 86, 0.5);
+}
+.terminal-buttons span:nth-child(2) {
+    background: #ffbd2e;
+    border: 1px solid rgba(255, 189, 46, 0.5);
+}
+.terminal-buttons span:nth-child(3) {
+    background: #27c93f;
+    border: 1px solid rgba(39, 201, 63, 0.5);
+}
+
+.terminal-title {
+    color: var(--neon-primary);
+    font-size: 14px;
+    text-shadow: 0 0 5px var(--neon-primary);
+}
+
+/* Contenu du terminal */
+.terminal-content {
+    padding: 20px;
+    min-height: 300px;
+    background: linear-gradient(180deg,
+    rgba(0, 255, 255, 0.05) 0%,
+    rgba(255, 0, 255, 0.05) 100%);
+}
+
+.line {
+    margin: 8px 0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+    text-shadow: 0 0 2px #fff;
+}
+
+.prompt {
+    color: var(--neon-primary);
+    margin-right: 10px;
+    text-shadow: 0 0 5px var(--neon-primary);
+}
+
+.command-text {
+    color: var(--neon-secondary);
+    text-shadow: 0 0 3px var(--neon-secondary);
+}
+
+.output-text {
+    color: #0f0;
+    text-shadow: 0 0 3px #0f0;
+}
+
+/* Titre principal et sous-titres */
+.main-title {
+    font-size: 2.5rem;
+    color: var(--neon-primary);
+    margin: 30px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    text-shadow: 0 0 10px var(--neon-primary),
+    0 0 20px var(--neon-primary),
+    0 0 30px var(--neon-primary);
+}
+
+.main-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.typing-sub {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 10px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+    text-shadow: 0 0 5px #fff;
+}
+
+.typing-sub.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Curseur clignotant */
+.terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1em;
+    background: var(--neon-primary);
+    margin-left: 5px;
+    animation: blink 1s infinite;
+    box-shadow: 0 0 5px var(--neon-primary);
+}
+
+/* Animations */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes terminalGlow {
+    from {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+        inset 0 0 15px rgba(0, 255, 255, 0.1);
+    }
+    to {
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.4),
+        inset 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+}
+
+/* Effet scanline */
+.terminal-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            transparent 50%,
+            rgba(0, 255, 255, 0.025) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 0 100%;
+    }
+}
+
+/* Effet de glitch sur le texte */
+.glitch-text {
+    position: relative;
+    animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 0 var(--neon-primary), -2px 0 var(--neon-secondary);
+    }
+    25% {
+        text-shadow: -2px 0 var(--neon-primary), 2px 0 var(--neon-secondary);
+    }
+    50% {
+        text-shadow: 2px 0 var(--neon-secondary), -2px 0 var(--neon-primary);
+    }
+    75% {
+        text-shadow: -2px 0 var(--neon-secondary), 2px 0 var(--neon-primary);
+    }
+    100% {
+        text-shadow: 2px 0 var(--neon-primary), -2px 0 var(--neon-secondary);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .terminal-container {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    .main-title {
+        font-size: 1.8rem;
+    }
+
+    .typing-sub {
+        font-size: 1rem;
+    }
+}
+
+/* Style amélioré de la navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--neon-primary);
+    padding: 1rem 0;
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-content ul {
+    display: flex;
+    gap: 4rem;
+    list-style: none;
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.nav-link::before,
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--neon-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link::before {
+    left: 0;
+    top: 0;
+}
+
+.nav-link::after {
+    right: 0;
+    bottom: 0;
+}
+
+.nav-link:hover {
+    color: var(--neon-primary);
+    border-color: var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary);
+}
+
+.nav-link:hover::before,
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.terminal-container {
+    transition: all 1s ease-in-out;
+}
+
+.terminal-container.fade-out {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.content-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-in-out;
+}
+
+.content-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation de fondu pour le titre et les sous-titres */
+.main-title,
+.typing-sub {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-in-out;
+}
+
+.main-title.visible,
+.typing-sub.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Assurer un scroll fluide */
+html {
+    scroll-behavior: smooth;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    background-color: #0a0a0a;
+    perspective: 2000px;
+    margin: 4rem auto;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-item {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    transition: all 0.5s ease;
+    transform-origin: center;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(50%);
+    transition: all 0.5s ease;
+}
+
+.carousel-item:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Flèches améliorées */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--neon-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.carousel-arrow:hover {
+    background: var(--neon-primary);
+}
+
+.carousel-arrow.prev {
+    left: -80px;
+}
+
+.carousel-arrow.next {
+    right: -80px;
+}
+
+.carousel-arrow svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--neon-primary);
+    transition: fill 0.3s ease;
+}
+
+.carousel-arrow:hover svg {
+    fill: #000;
+}
+
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.carousel-item:hover .project-info {
+    transform: translateY(0);
+}
+
+body, .section, .projects-section, #about, .terminal-container {
+    background:
+            linear-gradient(90deg, rgba(64, 224, 208, 0) 0%, rgba(64, 224, 208, 0) 98%, rgba(64, 224, 208, 0.05) 98%, rgba(64, 224, 208, 0.05) 100%),
+            linear-gradient(0deg, rgba(64, 224, 208, 0) 0%, rgba(64, 224, 208, 0) 98%, rgba(64, 224, 208, 0.05) 98%, rgba(64, 224, 208, 0.05) 100%);
+    background-size: 50px 50px;
+    background-color: #0a0a0a;
+}
+
+
+/* Ajout dans ton main.css */
+#loading-screen {
+    transition: background-color 0.5s ease;
+}
+
+#initials {
+    transition: opacity 0.5s ease;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* S'assurer que les particles et le terminal restent visibles */
+#particles-js {
+    opacity: 1 !important;
+    transition: none !important;
+}
+
+.terminal-container {
+    opacity: 1 !important;
+    transition: none !important;
+}
+
+

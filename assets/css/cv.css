@@ -1,0 +1,119 @@
+/* Section CV */
+.cv-section {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Hauteur fixe pour la section */
+    background: #000; /* Fond noir */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container des particles */
+.cv-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Container principal */
+.cv-container {
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Wrapper du bouton pour le centrage */
+.cv-button-wrapper {
+    text-align: center;
+}
+
+/* Bouton CV */
+.cv-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: transparent;
+    border: 2px solid var(--neon-primary);
+    color: var(--neon-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+/* Effet de hover */
+.cv-button:hover {
+    background: var(--neon-primary);
+    color: #000; /* Assure que le texte reste visible sur fond noir */
+    box-shadow: 0 0 20px var(--neon-primary);
+    transform: translateY(-2px);
+}
+
+/* Effet avant/après pour l'animation de bordure */
+.cv-button::before,
+.cv-button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--neon-primary);
+    transition: all 0.3s ease;
+}
+
+.cv-button::before {
+    top: 0;
+    left: -100%;
+}
+
+.cv-button::after {
+    bottom: 0;
+    right: -100%;
+}
+
+.cv-button:hover::before {
+    left: 0;
+}
+
+.cv-button:hover::after {
+    right: 0;
+}
+
+/* Texte du bouton */
+.cv-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .cv-section {
+        height: 250px;
+    }
+
+    .cv-button {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cv-section {
+        height: 200px;
+    }
+
+    .cv-button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.8rem;
+    }
+}

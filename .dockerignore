@@ -1,0 +1,31 @@
+# Fichiers de développement
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers Git
+.git/
+.gitignore
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Documentation
+README.md
+*.md
+
+# Fichiers Fly.io
+fly.toml 
